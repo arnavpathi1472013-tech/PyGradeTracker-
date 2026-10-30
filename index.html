@@ -1,53 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Python Grade Tracker</title>
+    <title>Grade Feedback System</title>
     <link rel="stylesheet" href="https://pyscript.net/releases/2023.05.1/pyscript.css" />
     <script defer src="https://pyscript.net/releases/2023.05.1/pyscript.js"></script>
 </head>
 <body>
-    <h2>Python Web Grade Tracker</h2>
+    <h2>Grade Feedback System</h2>
 
-    <label>Student Name:</label><br>
-    <input type="text" id="name"><br><br>
+    <label>Enter marks obtained (out of 60):</label><br>
+    <input type="number" id="marksInput"><br><br>
 
-    <label>Subject:</label><br>
-    <input type="text" id="subject"><br><br>
+    <button py-click="check_grade()">Calculate Grade</button>
 
-    <label>Marks:</label><br>
-    <input type="number" id="marks"><br><br>
-
-    <button py-click="add_grade()">Save Grade</button>
-
-    <h3>Records:</h3>
-    <div id="output"></div>
-
-    <py-config>
-    </py-config>
+    <h3>Result:</h3>
+    <div id="outputDiv"></div>
 
     <py-script>
         from js import document
 
-        db = {}
-
-        def add_grade(*args):
-            name = document.getElementById("name").value
-            sub = document.getElementById("subject").value
-            mark = document.getElementById("marks").value
-
-            if name == "" or sub == "" or mark == "":
+        def check_grade(*args):
+            user_input = document.getElementById("marksInput").value
+            
+            if user_input == "":
+                document.getElementById("outputDiv").innerHTML = "Please enter a valid number!"
                 return
 
-            if name not in db:
-                db[name] = []
+            marks = float(user_input)
+            percentage = (marks / 60) * 100
 
-            db[name].append(f"{sub}: {mark}")
+            if percentage >= 90:
+                feedback = "Outstanding performance!"
+            elif percentage >= 75:
+                feedback = "Great job, keep it up!"
+            elif percentage >= 50:
+                feedback = "Good effort, but you can do better."
+            else:
+                feedback = "Need serious improvement!"
 
-            text = ""
-            for student, records in db.items():
-                text += f"<b>{student}</b>: {', '.join(records)}<br>"
-
-            document.getElementById("output").innerHTML = text
+            result_text = f"Percentage: {round(percentage, 2)}%<br>Feedback: {feedback}"
+            document.getElementById("outputDiv").innerHTML = result_text
     </py-script>
+</script>
 </body>
 </html>
