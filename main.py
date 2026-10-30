@@ -11,22 +11,22 @@ def check_grade(*args):
     percentage = (marks / 60) * 100
 
     if percentage >= 91:
-        feedback = "A1"
+        grade = "A1"
     elif percentage >= 81:
-        feedback = "A2"
+        grade = "A2"
     elif percentage >= 71:
-        feedback = "B1"
+        grade = "B1"
     elif percentage >= 61:
-        feedback = "B2"
+        grade = "B2"
     elif percentage >= 51:
-        feedback = "C1"
+        grade = "C1"
     elif percentage >= 41:
-        feedback = "C2"
+        grade = "C2"
     elif percentage >= 33:
-        feedback = "D"
+        grade = "D"
     else:
-        feedback = "E"
+        grade = "E"
 
-    result_text = f"Percentage: {round(percentage, 2)}%<br>Feedback: {feedback}"
+    result_text = f"Percentage: {round(percentage, 2)}%<br>Grade: {grade}"
     document.getElementById("outputDiv").innerHTML = result_text
   
